@@ -1,0 +1,36 @@
+* PS-ScheduleCHKDSKandScans
+Automatically schedules windows filesystem checks if the drive is detected to
+have corruption. If corruption occurs more than once per week, an email is sent
+out to your desired address. SFC & DISM scans are scheduled for 10PM. CHKDSKs on
+the corrupt drive are scheduled for 12AM
+
+This can be run standalone, although ideally you set it up as an automatic
+response in your RMM software. There are failsafes in place to prevent the
+script from running multiple times due to alert spam.
+
+**Important**: A python EXE file is used to send the emails out. The source
+code to script is on my github [[https://github.com/peterunix/Python-Sendmail][LINK]]. The build in this project is compiled from
+that.
+
+** Usage
+Edit the script to change the body of the email sent and the credentials
+used. You can remove this functionality if you don't intend on using it.
+
+#+begin_src powershell
+PS> ./PS-ScheduleCHKDSKandScans.ps1
+#+end_src
+
+** Usage with RMM
+Create a hardware event monitor in your RMM software. Currently these are the
+hardware event logs the script will respond to:
+
+#+begin_src 
+Get-EventLog -LogName System -EntryType Error -Source Ntfs -Message "A corruption was discovered in the file system structure on volume*" -ErrorAction 'SilentlyContinue'
+Get-EventLog -LogName System -EntryType Error -Source Disk -Message "The device, *has a bad block*" -ErrorAction 'SilentlyContinue'
+Get-EventLog -LogName System -EntryType Error -Source Disk -Message "The driver detected a controller error on*" -ErrorAction 'SilentlyContinue'
+#+end_src
+
+Now upload the script as an automatic response to hardware events reported by
+your RMM.
+
+** 
