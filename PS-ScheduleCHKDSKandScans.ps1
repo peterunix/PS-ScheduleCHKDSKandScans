@@ -190,8 +190,9 @@ switch statement.
 		$task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -User System -Settings $settings
 		$task | Set-ScheduledTask
 		# Recreating the logfile show a scan was done
+		Write-Host "Corrupt Volume Chkdsk Scheduled: $driveLetter $(Get-Date)"
 		Add-Content "Corrupt Volume Chkdsk Scheduled: $driveLetter $(Get-Date)" -Path $TXTLOG | Out-Null
-		_CreateEventLogEntry -LogName "Application" -LogSource "ChkdskScript" -Message "Corrupt Volume Chkdsk Scheduled: $driveLetter $(Get-Date)" -LogType "Informational"
+		_CreateEventLogEntry -LogName "Application" -LogSource "ChkdskScript" -Message "Corrupt Volume Chkdsk Scheduled: $driveLetter $(Get-Date)" -LogType "Information"
 	    } else{"CHKDSK Scheduled task already exists. Exiting" ; Exit 1}
 	}
 	"Bad Block"{
@@ -214,8 +215,9 @@ switch statement.
 		$task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -User System -Settings $settings
 		$task | Set-ScheduledTask
 		# Recreating the logfile show a scan was done
+		Write-Host "Corrupt Disk Chkdsk Scheduled: $driveName $driveNumber $driveLetter $(Get-Date)"
 		Add-Content "Corrupt Disk Chkdsk Scheduled: $driveName $driveNumber $driveLetter $(Get-Date)" -Path $TXTLOG | Out-Null
-		_CreateEventLogEntry -LogName "Application" -LogSource "ChkdskScript" -Message "Corrupt Disk Chkdsk Scheduled: $driveName $driveNumber $driveLetter $(Get-Date)" -LogType "Informational"
+		_CreateEventLogEntry -LogName "Application" -LogSource "ChkdskScript" -Message "Corrupt Disk Chkdsk Scheduled: $driveName $driveNumber $driveLetter $(Get-Date)" -LogType "Information"
 	    } else{"CHKDSK Scheduled task already exists. Exiting" ; Exit 1}
 	}
 	"Driver Detection"{
@@ -241,8 +243,9 @@ switch statement.
 		$task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -User System -Settings $settings
 		$task | Set-ScheduledTask
 		# Recreating the logfile show a scan was done
+		Write-Host "Corrupt Disk Chkdsk Scheduled: $driveName $driveNumber $driveLetter $(Get-Date)"
 		Add-Content "Corrupt Disk Chkdsk Scheduled: $driveName $driveNumber $driveLetter $(Get-Date)" -Path $TXTLOG | Out-Null
-		_CreateEventLogEntry -LogName "Application" -LogSource "ChkdskScript" -Message "Corrupt Disk Chkdsk Scheduled: $driveName $driveNumber $driveLetter $(Get-Date)" -LogType "Informational"
+		_CreateEventLogEntry -LogName "Application" -LogSource "ChkdskScript" -Message "Corrupt Disk Chkdsk Scheduled: $driveName $driveNumber $driveLetter $(Get-Date)" -LogType "Information"
 	    } else{"CHKDSK Scheduled task already exists. Exiting" ; Exit 1}
 	}
     }
